@@ -1,7 +1,12 @@
 ---
+name: "Shivam Purohit"
 title: "Lab 4 - Potpourri"
 categories: "Lab"
 ---
+```{r}
+library(ggplot2)
+library(palmerpenguins)
+```
 
 ```{r}
 #| include: false
@@ -9,7 +14,9 @@ categories: "Lab"
 
 library(datasauRus)
 library(tidyverse)
+
 ```
+
 
 # Introduction
 
@@ -19,38 +26,48 @@ In this lab you'll review and get practice with a variety of concepts, methods, 
 
 ## Question 1
 
-a.  Add each of strings below to the code chunk provided in your document, render the document, and determine if the string is a proper code chunk label. If not, explain why and describe how you could fix it so the document renders.
+a. Add each of strings below to the code chunk provided in your document, render the document, and determine if the string is a proper code chunk label. If not, explain why and describe how you could fix it so the document renders.
 
-    -   Chunk label 1:
+- Chunk label 1:
 
-    ```         
-    #| label: a-label 
-    #| with-a-line-break
-    ```
+```         
+#| label: a-label 
+#| with-a-line-break
+```
 
-    -   Chunk label 2:
+Chunk label 1 does not work because the label is split over two lines. The label is written on one line such as `a-label-with-a-line-break` to fix it.
 
-    ```         
-    #| label: areaaaaaaaaaaaaaaaaaaaaaallllllllllllllllllyyyyylooooooooooooooooooonglabel 
-    ```
+- Chunk label 2:
 
-    -   Chunk label 3:
+```         
+#| label: areaaaaaaaaaaaaaaaaaaaaaallllllllllllllllllyyyyylooooooooooooooooooonglabel
+```
 
-    ```         
-    #| label: label with spaces
-    ```
+Chunk label 2 works because it is written on one line and has no spaces, but it is too long and hard to read and not a good choice.`long-label`is better.
 
-    -   Chunk label 4:
+- Chunk label 3:
 
-    ```         
-    #| label: label-with-dashes
-    ```
+```         
+#| label: label with spaces
+```
+
+Chunk label 3  does not work as chunk labels cannot contain spaces. To fix it, the spaces should be replaced with dashes like `label-with-spaces`.
+
+- Chunk label 4:
+
+```         
+#| label: label-with-dashes
+```
+
+This is a proper chunk label because it is on one line, has no spaces, and uses dashes correctly.
 
     ::: callout-tip
     Try each label option in the code chunk provided in your document. If it gives you an error (document doesn't render), you know it's not a proper chunk label.
     :::
 
-b.  Which of the chunk label options above is the best option? Explain your reasoning in 1-2 sentences.
+b. Which of the chunk label options above is the best option? Explain your reasoning in 1–2 sentences.
+
+`label-with-dashes` is the best option as it is short, clear, easy to read, and  proper chunk label rules are followed. 
 
 ## Question 2
 
@@ -58,40 +75,94 @@ You have the following code chunk:
 
 ```{r}
 #| eval: false
-    
+
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + 
   geom_point()
 ```
 
-Add the following code chunk options, one at a time, and set each to `false` and then to `true`. After each value, render your document and observe its effect. Ultimately, choose the values that are the most appropriate for this code chunk. Based on the behaviors you observe, describe what each code chunk option does.
+    Add the following code chunk options, one at a time, and set each to `false` and then to `true`. After each value, render your document and observe its effect. Ultimately, choose the values that are the most appropriate for this code chunk. Based on the behaviors you observe, describe what each code chunk option does.
 
--   `echo`
--   `warning`
--   `eval`
+- `echo`
+
+When I tried `echo: true`.  The code is hidden, but the output can still appear if the code runs `echo: false`. The goal is to show only the plot and not the code  then`echo: false` is better.  
+
+- `warning`
+ 
+ Warning messages produced by the code are shown in the document with `warning: true`. And warning messages are hidden with `warning: false`. `warning: false` is better, so the document stays clean unless the warnings matter.
+
+- `eval`
+  
+The code runs when the document is rendered, so the plot is created, with `eval: true`. With `eval: false`, the code does not run, so no plot is formed and it  is better if you want to show a scatter plot.
+
+The most appropriate final settings for this code chunk are:
+
+```{r}
+#| echo: false
+#| warning: false
+#| eval: true
+
+# with assistance of ChatGPT
+
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + 
+  geom_point()
+```
 
 ## Question 3
 
-a.  You have the following code chunk again.
+a. You have the following code chunk again.
 
-    ```{r}
-    #| eval: false
+```{r}
+#| eval: false
 
-    ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + 
-      geom_point()
-    ```
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + 
+  geom_point()
+```
 
     Add `fig-width` and `fig-asp` as code chunk options. Try setting `fig-width` to values between 1 and 10. Try setting `fig-asp` to values between 0.1 and 1. Re-render the document after each value and observe its effect. Ultimately, choose values that make the plot look visually pleasing in the rendered document. Based on the behavior you observe, describe what each chunk option does.
 
-b.  You have the following code chunk, but look carefully, it's not exactly the same!
+`fig-width` changes the width of the figure. Larger values make the plot wider and smaller values make it shorter. 
 
-    ```{r}
-    #| eval: false
+fig-asp` changes how tall the figure is compared to its width. Larger values make the figure taller and smaller values make it shorter.
 
-    gplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + 
-      geom_point()
-    ```
+
+A visually pleasing choice for this plot is:
+
+```{r}
+#| fig-width: 6
+#| fig-asp: 0.7
+#| eval: true
+
+# with assistance of ChatGPT
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + 
+  geom_point()
+```
+
+The values make the plot easy to read without being stretched.
+
+b. You have the following code chunk, but look carefully, it's not exactly the same!
+
+```{r}
+#| eval: false
+
+gplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + 
+  geom_point()
+```
 
     Add `error` as a code chunk option and set it to `false` and then set it to `true`. After each value, render your document and observe its effect. Ultimately, choose the value that allows you to render your document without altering the code. Based on the behavior you observe, describe what this code chunk option does.
+    
+
+`error: false` stops the document from running when the chunk has an error. In `error: true`, the document still runs even if the code chunk has an error, and an error message is shown in the output.
+
+This produces an error because this chunk uses `gplot()` instead of `ggplot()`. The value that allows the document to run without changing the code is `error: true`.
+
+```{r}
+#| error: true
+#| eval: true
+
+# with assistance of ChatGPT
+gplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + 
+  geom_point()
+```
 
 ::: callout-tip
 Reading [the documentation](https://quarto.org/docs/reference/formats/pdf.html#execution) might also be hepful.
